@@ -59,7 +59,7 @@ for i in range(7):
             blow += 1
         else:
             pass
-    print(f'{hit}hit!{blow}blow!\n')
+    print(f'{hit}hit! {blow}blow!\n')
     if hit == 4:
         print('クリアです！おめでとうございます！')
         is_print_result = False
