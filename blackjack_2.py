@@ -33,7 +33,7 @@ def blackjack():
         else:  # other_value >= 8
             return 4
 
-    class card:
+    class Card:
         def __init__(self, suit: str, number: str) -> None:
             self.suit: str = suit
             self.number: str = number
@@ -44,10 +44,10 @@ def blackjack():
             else:
                 self.value: int = int(self.number)
 
-    class player:
+    class Player:
         def __init__(self, name: str) -> None:
             self.name: str = name
-            self.cardlist: list[card] = []
+            self.cardlist: list[Card] = []
             # 入力連続失敗時の脱出用フラグ
             self.is_exit: bool = False
             # standの際の脱出用フラグ
@@ -62,7 +62,7 @@ def blackjack():
             self.is_first: bool = True
 
         # カードを受け取る
-        def receive_card(self, shuffle_card: card) -> None:
+        def receive_card(self, shuffle_card: Card) -> None:
             self.cardlist.append(shuffle_card)
 
         # scoreを計算する
@@ -114,7 +114,7 @@ def blackjack():
                 return False
 
         # hitとstandの選択
-        def select_hand(self, shuffle_cards: list[card]) -> None:
+        def select_hand(self, shuffle_cards: list[Card]) -> None:
             for i in range(10):  # 10回入力失敗すると終了
                 hand: str = input('hit or stand？ hit:h stand:s ->')
                 if hand == 'h':
@@ -138,17 +138,17 @@ def blackjack():
                 self.is_exit = True
                 return
 
-    class computer:
+    class Computer:
         def __init__(self, name: str) -> None:
             self.name: str = name
-            self.cardlist: list[card] = []
+            self.cardlist: list[Card] = []
             self.is_stand: bool = False
             self.is_bust: bool = False
             self.is_naturalblackjack: bool = False
             self.is_blackjack: bool = False
             self.is_first: bool = True
 
-        def receive_card(self, shuffle_card: card) -> None:
+        def receive_card(self, shuffle_card: Card) -> None:
             self.cardlist.append(shuffle_card)
 
         def calc_score(self) -> int:
@@ -206,7 +206,7 @@ def blackjack():
                 return False
 
         # scoreが17以上になるまではhit、なったらstand
-        def select_hand(self, shuffle_cards: list[card]) -> None:
+        def select_hand(self, shuffle_cards: list[Card]) -> None:
             if self.calc_score() < 17:
                 print(f'{self.name} hit')
                 self.cardlist.append(shuffle_cards.pop(0))
@@ -232,26 +232,26 @@ def blackjack():
     print('blackjack start\n')
 
     # 52枚のトランプをインスタンス化
-    cards: list[card] = []
+    cards: list[Card] = []
     for s in suits:
         for n in numbers:
-            cards.append(card(s, n))
+            cards.append(Card(s, n))
 
     # テスト用カード
-    # cards_test: list[card] = []
-    # cards_test.append(card('スペード', 'A'))
-    # cards_test.append(card('ハート', '5'))
-    # cards_test.append(card('ダイヤ', 'A'))
-    # cards_test.append(card('ハート', '9'))
-    # cards_test.append(card('クローバー', 'K'))
-    # cards_test.append(card('ハート', '6'))
+    # cards_test: list[Card] = []
+    # cards_test.append(Card('スペード', 'A'))
+    # cards_test.append(Card('ハート', '5'))
+    # cards_test.append(Card('ダイヤ', 'A'))
+    # cards_test.append(Card('ハート', '9'))
+    # cards_test.append(Card('クローバー', 'K'))
+    # cards_test.append(Card('ハート', '6'))
 
     # プレーヤー・コンピュータのインスタンス化
-    human = player('HUMAN')
-    cpu = computer('CPU')
+    human = Player('HUMAN')
+    cpu = Computer('CPU')
 
     # カードのシャッフル
-    shuffle_cards: list[card] = random.sample(cards, len(cards))
+    shuffle_cards: list[Card] = random.sample(cards, len(cards))
 
     # 表示テスト
     # for sc in shuffle_cards:
